@@ -75,8 +75,8 @@ describe "Grupo de test" {
     assert.equals(12, tom.velocidadMaxima())
   }
   test "Tom no puede cazar si no tiene energía suficiente" {
-  tom.correr(90)
-  assert.notThat(tom.puedeCazarALaDistancia(50)) 
-}
+    tom.correr(90)
+    assert.notThat(tom.puedeCazarALaDistancia(50))
+  }
 
 }
