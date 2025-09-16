@@ -1,3 +1,5 @@
+// tomJerryNibbles.wtest
+// tomJerryNibbles.wtest
 import tomJerryNibbles.*
 
 describe "Grupo de test" {
@@ -6,39 +8,75 @@ describe "Grupo de test" {
   }
   
   test "Tom come a Jerry (edad 2) y alcanza velocidad máxima 15.2" {
-    tom.cazarRaton(jerry)
+    tom.comer(jerry)
     assert.equals(15.2, tom.velocidadMaxima())
   }
   
   test "Tom corre 24 metros después de comer a Jerry: velocidad baja a 14" {
     tom.correr(24)
-    tom.cazarRaton(jerry)
+    tom.comer(jerry)
     assert.equals(14, tom.velocidadMaxima())
   }
   
   test "Tom come a Nibbles tras correr 24m y comer a Jerry: velocidad sube a 18.7" {
     tom.correr(24)
-    tom.cazarRaton(jerry)
-    tom.cazarRaton(nibbles)
+    tom.comer(jerry)
+    tom.comer(nibbles)
     assert.equals(18.7, tom.velocidadMaxima())
   }
   
   test "Jerry cumple años, Tom lo vuelve a comer tras correr 24m: velocidad máxima 25.9" {
     tom.correr(24)
-    tom.cazarRaton(jerry)
-    tom.cazarRaton(nibbles)
+    tom.comer(jerry)
+    tom.comer(nibbles)
     jerry.cumplirAño()
-    tom.cazarRaton(jerry)
+    tom.comer(jerry)
     assert.equals(25.9, tom.velocidadMaxima())
   }
   
   test "Historia completa: Tom corre 24m, come a Jerry y Nibbles, Jerry cumple años, lo vuelve a comer, corre 38m más → velocidad final 24" {
     tom.correr(24)
-    tom.cazarRaton(jerry)
-    tom.cazarRaton(nibbles)
+    tom.comer(jerry)
+    tom.comer(nibbles)
     jerry.cumplirAño()
     tom.correr(38)
-    tom.cazarRaton(jerry)
+    tom.comer(jerry)
     assert.equals(24, tom.velocidadMaxima())
   }
+  
+  test "Comer a ratatta" {
+    tom.comer(ratatta)
+    assert.equals(64, tom.energia())
+  }
+  
+  test "Tom Corre 100 metros" {
+    tom.correr(100)
+    assert.equals(100, tom.metrosRecorridos())
+  }
+  
+  test "Ultimo raton comido por tom" {
+    tom.comer(nibbles)
+    tom.comer(jerry)
+    assert.equals(jerry, tom.ultimoRatonComido())
+  }
+  
+  test "Ver si tom puede cazar a nibbles" {
+    assert.that(tom.puedeCazarALaDistancia(20))
+  }
+  
+  test "Ver si tom puede cazar a jerry" {
+    tom.cazarRatonADistancia(jerry, 24)
+    assert.equals(14, tom.velocidadMaxima())
+  }
+
+  test "Hacer que tom coma a ratatta despues de crecer y ver su velocidad maxima"{
+    ratatta.crecer(30)
+    tom.comer(ratatta)
+    assert.equals(12, tom.velocidadMaxima())
+  }
+  test "Tom no puede cazar si no tiene energía suficiente" {
+  tom.correr(90)
+  assert.notThat(tom.puedeCazarALaDistancia(50)) 
+}
+
 }
